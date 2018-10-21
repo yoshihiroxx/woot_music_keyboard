@@ -49,7 +49,7 @@ class MIDI_MAP(Enum):
 	SCAN_Backslash = auto()
 	SCAN_Delete = 999
 	SCAN_End = auto()
-	SCAN_CapsLock = 49
+	SCAN_CapsLock = 48
 	SCAN_A = auto()
 	SCAN_S = auto()
 	SCAN_D = auto()
@@ -66,12 +66,12 @@ class MIDI_MAP(Enum):
 	SCAN_PageDown = auto()
 	SCAN_Up = auto()
 	SCAN_ModifierLeftShift = 2000
-	SCAN_Z = 56
+	SCAN_Z = 54
 	SCAN_X = auto()
 	SCAN_C = auto()
 	SCAN_V = auto()
 	SCAN_B = auto()
-	SCAN_N = 85
+	SCAN_N = 81
 	SCAN_M = auto()
 	SCAN_Comma = auto()
 	SCAN_Dot = auto()
@@ -85,9 +85,9 @@ class MIDI_MAP(Enum):
 	SCAN_ModifierLeftUi = 59
 	SCAN_ModifierLeftAlt = auto()
 	SCAN_Spacebar = 999
-	SCAN_ModifierRightAlt = 90
-	SCAN_ModifierRightUi = 91
-	SCAN_FnKey = 92
+	SCAN_ModifierRightAlt = 86
+	SCAN_ModifierRightUi = 87
+	SCAN_FnKey = 88
 	SCAN_ExtraIso = 999
 	SCAN_Numpad1 = 999
 	SCAN_Numpad2 = auto()
