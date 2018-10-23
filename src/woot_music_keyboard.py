@@ -14,7 +14,7 @@ class WootMusicKeyboard():
 
         #load sdk
         base_path = os.path.dirname(os.path.abspath(__file__))
-        sdk_path = os.path.join(base_path, '..\\wooting-analog-sdk\\windows\\Release\\wooting-analog-sdk.dll')
+        sdk_path = os.path.join(base_path, '..\\wooting-analog-sdk.dll')
         self.sdk = ctypes.cdll.LoadLibrary(sdk_path)
 
         #init ctypes array
