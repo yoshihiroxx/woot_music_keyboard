@@ -43,6 +43,10 @@ pipenv shell
 python example/send_midi.py
 ```
 
+## Default MIDI map
+![default_midi_maps](resources/default_midi_maps.png)
+
+
 ## TODOS
 - recieve the midi and illuminate the keys.
 - octave shift
