@@ -3,6 +3,7 @@ import os
 
 from single_woot_midi_key import SingleWootMidiKey
 from helpers.midi_note_helper import getMidiNoteByScanCode
+from helpers.row_col_helper import getMatIdByNoteNum
 
 
 
@@ -14,15 +15,18 @@ class WootMusicKeyboard():
 
         #load sdk
         base_path = os.path.dirname(os.path.abspath(__file__))
-        sdk_path = os.path.join(base_path, '..\\wooting-analog-sdk.dll')
-        self.sdk = ctypes.cdll.LoadLibrary(sdk_path)
+        analog_sdk_path = os.path.join(base_path, '..\\wooting-analog-sdk.dll')
+        self.analog_sdk = ctypes.cdll.LoadLibrary(analog_sdk_path)
+
+        rgb_sdk_path = os.path.join(base_path, '..\\wooting-rgb-sdk.dll')
+        self.rgb_sdk = ctypes.cdll.LoadLibrary(rgb_sdk_path)
 
         #init ctypes array
         self.buffer_size = ctypes.c_uint(32)
         analogBuffer = ctypes.c_uint8 * 32
         self.buffer_arr = analogBuffer()
 
-        if self.sdk.wooting_kbd_connected() :
+        if self.analog_sdk.wooting_kbd_connected() :
             print('wooting has connected')
         else:
             print('wooting has not connected')
@@ -35,10 +39,22 @@ class WootMusicKeyboard():
             if note < 127:
                 self._observers[name](note, vel)
 
+    def rgb_direct_set_key_by_note(self,note, red, green, blue):
+         row_and_col = getMatIdByNoteNum(note)
+         self.rgb_sdk.wooting_rgb_direct_set_key(int(row_and_col[0][0]), int(row_and_col[1][0]), red, green, blue)
+
+    def rgb_direct_reset_key_by_note(self, note):
+        row_and_col = getMatIdByNoteNum(note)
+        self.rgb_sdk.wooting_rgb_direct_reset_key(int(row_and_col[0][0]), int(row_and_col[1][0]))
+
+    def reset_rgb(self):
+        self.rgb_sdk.wooting_rgb_reset()
+
+
     def update(self):
 
         #get active_keys_count and update buffer
-        active_keys_count = self.sdk.wooting_read_full_buffer(ctypes.byref(self.buffer_arr), self.buffer_size)
+        active_keys_count = self.analog_sdk.wooting_read_full_buffer(ctypes.byref(self.buffer_arr), self.buffer_size)
         active_key_numbers = []
 
         #create single key instance, and regist event
