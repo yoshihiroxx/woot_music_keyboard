@@ -25,6 +25,10 @@ class TestSingleWootMidiKey(unittest.TestCase):
         self.w.rgb_direct_reset_key_by_note(61)
         time.sleep(1)
 
+    def test_out_of_range(self):
+        self.w.rgb_direct_set_key_by_note(150, 255, 0, 0)
+        self.w.rgb_direct_reset_key_by_note(150)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -4,9 +4,11 @@ from .midi_map import MIDI_MAP
 
 
 def getMatIdByNoteNum(note):
-    key_name = MIDI_MAP(note).name
-    return getMatIdByName(key_name)
-
+    try:
+      key_name = MIDI_MAP(note).name
+      return getMatIdByName(key_name)
+    except:
+      return
 
 def getMatIdByName(name):
     np_array = np.array(key_mat)

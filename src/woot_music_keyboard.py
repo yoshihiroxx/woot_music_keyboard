@@ -41,11 +41,13 @@ class WootMusicKeyboard():
 
     def rgb_direct_set_key_by_note(self,note, red, green, blue):
          row_and_col = getMatIdByNoteNum(note)
-         self.rgb_sdk.wooting_rgb_direct_set_key(int(row_and_col[0][0]), int(row_and_col[1][0]), red, green, blue)
+         if row_and_col:
+             self.rgb_sdk.wooting_rgb_direct_set_key(int(row_and_col[0][0]), int(row_and_col[1][0]), red, green, blue)
 
     def rgb_direct_reset_key_by_note(self, note):
         row_and_col = getMatIdByNoteNum(note)
-        self.rgb_sdk.wooting_rgb_direct_reset_key(int(row_and_col[0][0]), int(row_and_col[1][0]))
+        if row_and_col:
+            self.rgb_sdk.wooting_rgb_direct_reset_key(int(row_and_col[0][0]), int(row_and_col[1][0]))
 
     def reset_rgb(self):
         self.rgb_sdk.wooting_rgb_reset()
