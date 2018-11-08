@@ -1,5 +1,5 @@
 import unittest
-from woot_music_keyboard import WootMusicKeyboard
+from src.woot_music_keyboard import WootMusicKeyboard
 import time
 
 class TestSingleWootMidiKey(unittest.TestCase):

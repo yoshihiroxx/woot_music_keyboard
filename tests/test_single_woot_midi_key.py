@@ -1,5 +1,5 @@
 import unittest
-from single_woot_midi_key import SingleWootMidiKey
+from src.single_woot_midi_key import SingleWootMidiKey
 
 class TestSingleWootMidiKey(unittest.TestCase):
     """test class of single_woot_midi_key.py

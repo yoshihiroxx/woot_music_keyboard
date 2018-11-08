@@ -1,7 +1,8 @@
 import sys, os
+
+
 base_path = os.path.dirname(os.path.abspath(__file__))
 src_path = os.path.join(base_path, '..\\src')
-
 sys.path.append(src_path)
 from woot_music_keyboard import WootMusicKeyboard
 
@@ -25,7 +26,7 @@ def main():
     def noteOnHandler(note, vel):
         note_on = [0x90, note, vel]
         midiout.send_message(note_on)
-        print(note, vel)
+        print('note on ', note, vel)
 
     woot_music_keyboard.on('noteOn', noteOnHandler)
 
@@ -33,6 +34,7 @@ def main():
     def noteOffHandler(note, vel):
         note_off = [0x80, note, vel]
         midiout.send_message(note_off)
+        print('noteoff ',note, vel)
 
     woot_music_keyboard.on('noteOff', noteOffHandler)
 

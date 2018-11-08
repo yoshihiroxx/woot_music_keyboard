@@ -15,6 +15,39 @@ def getMatIdByName(name):
     index = np.where(np_array == name)
     return index
 
+def isLeft(row, col):
+    if row == 1 and col <= 6 :
+        return True
+    elif row == 2 and col <= 5 :
+        return True
+    elif row == 3 and col <= 5 :
+        return True
+    elif row == 4 and col <= 6 :
+        return True
+    elif row == 5 and col <= 6 :
+        return True
+    elif row == 0 and col <= 6 :
+        return True
+    else :
+        return False
+
+def isRight(row, col):
+    if row == 1 and col > 6 :
+        return True
+    elif row == 2 and col > 5 :
+        return True
+    elif row == 3 and col > 5 :
+        return True
+    elif row == 4 and col > 6 :
+        return True
+    elif row == 5 and col > 6 :
+        return True
+    elif row == 0 and col > 6 :
+        return True
+    else :
+        return False
+
+
 key_mat = [
     [
         "SCAN_Escape",

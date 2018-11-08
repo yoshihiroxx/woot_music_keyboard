@@ -1,6 +1,6 @@
 import os, sys, unittest
 
-from row_col_helper import key_mat, getMatIdByName, getMatIdByNoteNum
+from src.helpers.row_col_helper import key_mat, getMatIdByName, getMatIdByNoteNum, isLeft
 import numpy as np
 import time
 
@@ -27,6 +27,16 @@ class RowColHelperTest(unittest.TestCase):
 
     def test_getMatIdByNoteNum(self):
         self.assertEqual(getMatIdByNoteNum(60), ([1],[8]))
+
+    def test_isLeft(self):
+        print("TODO")
+        self.assertTrue(isLeft(0, 6))
+        self.assertTrue(isLeft(1, 5))
+        self.assertTrue(isLeft(2, 0))
+        self.assertTrue(isLeft(3, 3))
+        self.assertTrue(isLeft(4, 6))
+        self.assertFalse(isLeft(4, 19))
+        self.assertFalse(isLeft(2, 19))
 
 if __name__ == '__main__':
     unittest.main()
