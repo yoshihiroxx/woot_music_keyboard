@@ -4,16 +4,34 @@ from .midi_map import MIDI_MAP
 
 
 def getMatIdByNoteNum(note):
+    row_and_col_array = None
     try:
       key_name = MIDI_MAP(note).name
-      return getMatIdByName(key_name)
+      for name, member in MIDI_MAP.__members__.items():
+        if member.name is key_name and member.name is not name:
+            if row_and_col_array is None:
+                row_and_col_array = getMatIdByNameAs2d(name)
+            else:
+                row_and_col_array = np.append(row_and_col_array, getMatIdByNameAs2d(name), axis=0)
+      if row_and_col_array is not None:
+        return np.append( row_and_col_array, getMatIdByNameAs2d(key_name),axis=0)
+      else:
+        return getMatIdByNameAs2d(key_name)
     except:
-      return
+      print('getMatIdByNoteNum got error')
+      return None
+
+def getMatIdByNameAs2d(name):
+    return getMatIdByName(name).reshape(1,2)
 
 def getMatIdByName(name):
     np_array = np.array(key_mat)
-    index = np.where(np_array == name)
-    return index
+    index_array = np.array(np.where(np_array == name))
+    if np.array(index_array).size is not 0:
+        return np.array(index_array).reshape(2)
+    else:
+        print('given error value')
+        return index_array
 
 def isLeft(row, col):
     if row == 1 and col <= 6 :

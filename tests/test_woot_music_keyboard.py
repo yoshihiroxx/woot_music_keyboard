@@ -29,6 +29,11 @@ class TestSingleWootMidiKey(unittest.TestCase):
         self.w.rgb_direct_set_key_by_note(150, 255, 0, 0)
         self.w.rgb_direct_reset_key_by_note(150)
 
+    def test_set_key(self):
+        time.sleep(2)
+        self.w.set_key(3)
+        time.sleep(2)
+
 
 if __name__ == "__main__":
     unittest.main()

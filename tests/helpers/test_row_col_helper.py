@@ -19,14 +19,16 @@ class RowColHelperTest(unittest.TestCase):
         print(getMatIdByName("Hoge")[0])
         elapsed_time = time.time() -start
         print("elapsed time:{0}". format(elapsed_time) + "[sec]")
-        self.assertEqual(getMatIdByName("SCAN_NumpadMinus"), ([1],[20]))
-        self.assertEqual(getMatIdByName("SCAN_NumpadPlus"), ([2],[20]))
-        self.assertEqual(getMatIdByName("SCAN_Numpad4"), ([3],[17]))
-        self.assertEqual(getMatIdByName("SCAN_Up"), ([4],[15]))
-        self.assertEqual(getMatIdByName("SCAN_Right"), ([5],[16]))
+        self.assertEqual(getMatIdByName("SCAN_ModifierLeftAlt").tolist(), [5,2])
+        self.assertEqual(getMatIdByName("SCAN_NumpadMinus").tolist(), [1,20])
+        self.assertEqual(getMatIdByName("SCAN_NumpadPlus").tolist(), [2,20])
+        self.assertEqual(getMatIdByName("SCAN_Numpad4").tolist(), [3,17])
+        self.assertEqual(getMatIdByName("SCAN_Up").tolist(), [4,15])
+        self.assertEqual(getMatIdByName("SCAN_Right").tolist(), [5,16])
 
     def test_getMatIdByNoteNum(self):
-        self.assertEqual(getMatIdByNoteNum(60), ([1],[8]))
+        self.assertEqual(getMatIdByNoteNum(60).tolist(), [[5,2],[1,8]])
+        self.assertEqual(getMatIdByNoteNum(48).tolist(), [[3,0]])
 
     def test_isLeft(self):
         print("TODO")
