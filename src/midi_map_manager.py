@@ -33,18 +33,16 @@ class MidiMapManager():
 
         left_decoded_note = note - self.octaves["left"]*12 - self.octaves["master"]*12
         left_indices = _getMatIdByNoteNum(left_decoded_note)
-        if left_indices is None:
-            return None
-        for left_id in left_indices:
-            if left_id is not None and isLeft(left_id[0], left_id[1]):
-                marged_ids = np.append( marged_ids, left_id.reshape(1,2), axis=0 )
+        if left_indices is not None:
+            for left_id in left_indices:
+                if left_id is not None and isLeft(left_id[0], left_id[1]):
+                    marged_ids = np.append( marged_ids, left_id.reshape(1,2), axis=0 )
 
         right_decoded_note = note - self.octaves["right"]*12 - self.octaves["master"]*12
         right_indices = _getMatIdByNoteNum(right_decoded_note)
         if right_indices is None:
-            return None
-        for right_id in right_indices :
-            if right_id is not None and isRight(right_id[0], right_id[1]):
-                marged_ids = np.append( marged_ids, right_id.reshape(1,2), axis=0)
+            for right_id in right_indices :
+                if right_id is not None and isRight(right_id[0], right_id[1]):
+                    marged_ids = np.append( marged_ids, right_id.reshape(1,2), axis=0)
 
         return marged_ids
