@@ -15,7 +15,7 @@ class MidiMapManager():
         self.octaves[name] = value
 
     def shift_octave(self, name, value):
-        self.ocataves[name] += value
+        self.octaves[name] += value
 
     def get_maped_notenum_by_key_name(self, key_name, note):
         row_and_col = getMatIdByName(key_name)
@@ -30,7 +30,6 @@ class MidiMapManager():
 
     def getMatIdByNoteNum(self, note):
         marged_ids = np.empty((0,2), int)
-
         left_decoded_note = note - self.octaves["left"]*12 - self.octaves["master"]*12
         left_indices = _getMatIdByNoteNum(left_decoded_note)
         if left_indices is not None:
@@ -40,7 +39,7 @@ class MidiMapManager():
 
         right_decoded_note = note - self.octaves["right"]*12 - self.octaves["master"]*12
         right_indices = _getMatIdByNoteNum(right_decoded_note)
-        if right_indices is None:
+        if right_indices is not None:
             for right_id in right_indices :
                 if right_id is not None and isRight(right_id[0], right_id[1]):
                     marged_ids = np.append( marged_ids, right_id.reshape(1,2), axis=0)

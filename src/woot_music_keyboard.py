@@ -16,7 +16,7 @@ class WootMusicKeyboard():
         # managers
         self.midiMapManager = MidiMapManager()
         self.ledManager = LedManager(self.midiMapManager)
-        self.ledManager.init_leds()
+        self.ledManager.init_leds(self.midiMapManager.octaves["master"])
 
         # load sdk
         base_path = os.path.dirname(os.path.abspath(__file__))
@@ -56,10 +56,15 @@ class WootMusicKeyboard():
     def set_key(self, new_key_value):
         self.ledManager.key_shift(new_key_value)
 
+    def init_leds(self):
+        self.ledManager.init_leds(self.midiMapManager.octaves["master"])
+
     def update(self):
         # get active_keys_count and update buffer
+        
         active_keys_count = self.analog_sdk.wooting_read_full_buffer(ctypes.byref(self.buffer_arr), self.buffer_size)
         active_key_numbers = []
+        
         # create single key instance, and regist events
         for i in range(active_keys_count):
 
@@ -88,16 +93,25 @@ class WootMusicKeyboard():
 
                     if n_num == 200:  # right shift
                         self.midiMapManager.set_octave('right',  -1)
+                        self.ledManager.init_right()
                     elif n_num == 201:  # right ctrl
                         self.midiMapManager.set_octave('right',  1)
+                        self.ledManager.init_right()
                     if n_num == 202:  # left shift
                         self.midiMapManager.set_octave('left',  -1)
+                        self.ledManager.init_left()
                     elif n_num == 203:  # left ctrl
                         self.midiMapManager.set_octave('left',  1)
+                        self.ledManager.init_left()
                     if n_num == 204:  # shift master octave +1
                         self.midiMapManager.shift_octave('master', 1)
+                        self.ledManager.init_left()
+                        self.ledManager.init_right()
+
                     elif n_num == 205:  # shift master octave -1
                         self.midiMapManager.shift_octave('master', -1)
+                        self.ledManager.init_left()
+                        self.ledManager.init_right()
 
                     self.emit('noteOn', n_num, vel)
 
@@ -106,8 +120,10 @@ class WootMusicKeyboard():
                 def note_off_handler(n_num, vel):
                     if n_num == 200 or n_num == 201:  # right shift
                         self.midiMapManager.set_octave('right',  0)
+                        self.ledManager.init_right()
                     if n_num == 202 or n_num == 203:  # left ctrl
                         self.midiMapManager.set_octave('left',  0)
+                        self.ledManager.init_left()
                     self.emit('noteOff', n_num, vel)
 
                 self.woot_midi_keys[str(scan_code)].on('noteOff', callback=note_off_handler)
